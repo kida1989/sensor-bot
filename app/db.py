@@ -2,11 +2,15 @@ import sqlalchemy
 
 metadata = sqlalchemy.MetaData()
 
-test_table = sqlalchemy.Table('test_table', metadata,
+sensor_info_true = sqlalchemy.Table('sensor_info', metadata,
         sqlalchemy.Column('id', sqlalchemy.Integer, primary_key=True),
-        sqlalchemy.Column('date_created', sqlalchemy.String),
-        sqlalchemy.Column('device', sqlalchemy.String),
-        sqlalchemy.Column('temperature', sqlalchemy.Integer))
+        sqlalchemy.Column('name', sqlalchemy.String),
+        sqlalchemy.Column('country', sqlalchemy.String),
+        sqlalchemy.Column('min_temp', sqlalchemy.Float),
+        sqlalchemy.Column('max_temp', sqlalchemy.Float),
+        sqlalchemy.Column('humidity', sqlalchemy.Float),
+        sqlalchemy.Column('snow', sqlalchemy.Float)
+        )
 
 
 def connect_to_db(connection):
@@ -19,5 +23,5 @@ def crete_tables(engine):
 
 
 def write_record_to_db(data, engine):
-    query = test_table.insert().values(id=data['id'], date_created=data['date_created'], device=data['device'], temperature=data['temperature'])
+    query = sensor_info_true.insert().values(id=data['id'], name=data['name'], country=data['country'], min_temp=data['min_temp'],max_temp=data["max_temp"],humidity=data["humidity"],snow=data["snow"])
     engine.execute(query)
